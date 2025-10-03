@@ -1,49 +1,186 @@
-`timescale 1ns/1ps
+`timescale 10ns/1ns
 
 module test;
-    // 4‑bit stimulus (A,B,C,D) will count from 0 to 15
-    reg  [3:0] stimulus;
-    wire       a_y, b_y;
 
-    // Connect stimulus bits to module ports
-    wire A = stimulus[3];
-    wire B = stimulus[2];
-    wire C = stimulus[1];
-    wire D = stimulus[0];
+    reg [7:0] sw;
+    wire [4:0] led;
 
-    // Instantiate the two circuits under test
-    circuit_a uut_a (
-        .A(A), .B(B), .C(C), .D(D),
-        .Y(a_y)
+    generate
+        genvar led_idx;
+
+        for (led_idx = 0; led_idx <= 4; led_idx = led_idx + 1) begin
+            pulldown(led[led_idx]);
+        end
+    endgenerate
+
+    top uut(
+        .sw(sw[7:0]),
+        .led(led[4:0])
     );
 
-    circuit_b uut_b (
-        .A(A), .B(B), .C(C), .D(D),
-        .Y(b_y)
-    );
-
-    // Expected‑output vectors (16‑bit each)
-    // Replace the literals below with the values from your truth table
-    // Bit 15 corresponds to the stimulus = 4'b1111, bit 0 to 4'b0000
-    localparam [15:0] EXPECTED_A = 16'b0000000010101010; // expected Y for circuit_a
-    localparam [15:0] EXPECTED_B = 16'b1111000101010001; // expected Y for circuit_b
-
-    integer i;
     initial begin
         $dumpvars(0, test);
-        $display("Stim  A B C D | Y_a Y_b | Exp_a Exp_b");
-        for (i = 0; i < 16; i = i + 1) begin
-            stimulus = i[3:0];
-            #1; // small delay for combinational logic to settle
-            $display("%b %b %b %b |  %b   %b |   %b    %b",
-                     A, B, C, D,
-                     a_y, b_y,
-                     EXPECTED_A[i], EXPECTED_B[i]);
-            // Simple check – flag a mismatch
-            if (a_y !== EXPECTED_A[i]) $error("Mismatch in circuit_a at %0d", i);
-            if (b_y !== EXPECTED_B[i]) $error("Mismatch in circuit_b at %0d", i);
+        sw[0] = 0;
+        sw[1] = 0;
+        sw[2] = 0;
+        sw[3] = 0;
+        sw[4] = 0;
+        sw[5] = 0;
+        sw[6] = 0;
+        sw[7] = 0;
+        #20;
+        if (led != 5'b00000) begin
+            $display("Test failed! 01");
+            $finish;
         end
+        sw[0] = 0;
+        sw[1] = 1;
+        sw[2] = 1;
+        sw[3] = 0;
+        sw[4] = 1;
+        sw[5] = 0;
+        sw[6] = 0;
+        sw[7] = 0;
+        #20;
+        if (led != 5'b01011) begin
+            $display("Test failed! 02");
+            $finish;
+        end
+        sw[0] = 1;
+        sw[1] = 0;
+        sw[2] = 0;
+        sw[3] = 1;
+        sw[4] = 0;
+        sw[5] = 1;
+        sw[6] = 0;
+        sw[7] = 0;
+        #20;
+        if (led != 5'b10011) begin
+            $display("Test failed! 03");
+            $finish;
+        end
+        sw[0] = 1;
+        sw[1] = 1;
+        sw[2] = 1;
+        sw[3] = 1;
+        sw[4] = 1;
+        sw[5] = 1;
+        sw[6] = 0;
+        sw[7] = 0;
+        #20;
+        if (led != 5'b11100) begin
+            $display("Test failed! 04");
+            $finish;
+        end
+        sw[4] = 0;
+        sw[5] = 0;
+        sw[6] = 1;
+        sw[7] = 0;
+        #20;
+        if (led != 5'b01100) begin
+            $display("Test failed! 05");
+            $finish;
+        end
+        sw[4] = 1;
+        sw[5] = 0;
+        sw[6] = 1;
+        sw[7] = 0;
+        #20;
+        if (led != 5'b10100) begin
+            $display("Test failed! 06");
+            $finish;
+        end
+        sw[4] = 0;
+        sw[5] = 1;
+        sw[6] = 1;
+        sw[7] = 0;
+        #20;
+        if (led != 5'b11100) begin
+            $display("Test failed! 07");
+            $finish;
+        end
+        sw[4] = 1;
+        sw[5] = 1;
+        sw[6] = 1;
+        sw[7] = 0;
+        #20;
+        if (led != 5'b00100) begin
+            $display("Test failed! 08");
+            $finish;
+        end
+        sw[4] = 0;
+        sw[5] = 0;
+        sw[6] = 0;
+        sw[7] = 1;
+        #20;
+        if (led != 5'b10100) begin
+            $display("Test failed! 09");
+            $finish;
+        end
+        sw[4] = 1;
+        sw[5] = 0;
+        sw[6] = 0;
+        sw[7] = 1;
+        #20;
+        if (led != 5'b11100) begin
+            $display("Test failed! 10");
+            $finish;
+        end
+        sw[4] = 0;
+        sw[5] = 1;
+        sw[6] = 0;
+        sw[7] = 1;
+        #20;
+        if (led != 5'b00100) begin
+            $display("Test failed! 11");
+            $finish;
+        end
+        sw[4] = 1;
+        sw[5] = 1;
+        sw[6] = 0;
+        sw[7] = 1;
+        #20;
+        if (led != 5'b01100) begin
+            $display("Test failed! 12");
+            $finish;
+        end
+        sw[4] = 0;
+        sw[5] = 0;
+        sw[6] = 1;
+        sw[7] = 1;
+        #20;
+        if (led != 5'b11100) begin
+            $display("Test failed! 13");
+            $finish;
+        end
+        sw[4] = 1;
+        sw[5] = 0;
+        sw[6] = 1;
+        sw[7] = 1;
+        #20;
+        if (led != 5'b00100) begin
+            $display("Test failed! 14");
+            $finish;
+        end
+        sw[4] = 0;
+        sw[5] = 1;
+        sw[6] = 1;
+        sw[7] = 1;
+        #20;
+        if (led != 5'b01100) begin
+            $display("Test failed! 15");
+            $finish;
+        end
+        sw[4] = 1;
+        sw[5] = 1;
+        sw[6] = 1;
+        sw[7] = 1;
+        #20;
+        if (led != 5'b10100) begin
+            $display("Test failed! 16");
+            $finish;
+        end
+        $display("Test passed!!");
         $finish;
     end
 endmodule
-
