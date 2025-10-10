@@ -1,6 +1,6 @@
-# Number Theory: Addition
+# Number Theory: Subtraction
 
-In this lab you've learned the basics of number theory as it relates to addition.
+In this lab you've learned the basics of number theory as it relates to subtraction.
 
 ## Rubric
 
@@ -13,14 +13,17 @@ In this lab you've learned the basics of number theory as it relates to addition
 
 ## Lab Questions
 
-## Summary
-  In this lab we learned how to combine and code a two input light switch, as well as implementing a half and full adder together.   
+In this lab we set up a basic half subtractor, then made a full adder that could be used with ones compliment numbers. We then made a module that converts an 8 bit number into a twos compliment version of the same number.
 
-### 1 - How might you add more than two bits together?
-  You chain a number of full adders together equal to the maximum number of bits to add. You then connect all the carry ins to the carry outs, making a ripple carry effect.
+### 1 - Explain the differences between our Half Adder from last lab and the Half Subtractor from this lab.
 
-### 2 - What is the importance of the XOR gate in an adder?
-  It performs a couple actions, firstly it actually adds the numbers together, producing the sum without a carry in, and also inverts the sum in case of a carry in.
+While the half adder uses a carry bit, the half subtractor uses a borrow bit, which is different. The carry bit represented a 1 plus 1, while the borrow bit represents a 0 minus a 1.
 
-### 3 - What is the largest number a two bit adder can handle? What happens when you go over?
-  The largest number it can handle is 7, because when you go over it will overflow into the next bit, which doesn't exist. If you're only adding 2 2-bit numbers, it can only go up to 3 + 3.
+### 2 - What about the end around carry of One’s Complement makes it hard to use and implement?
+
+The end around must use a second pass of the same addition logic instead of looping back to the start, otherwise it may cause an infinite loop problem that can be very destructive.
+
+### 3 - What is the edge case and problem with Two’s Complement number representation?
+
+The edge case would be a number with all 1's, so that the Two's Complement number would overflow to the next bit.
+
