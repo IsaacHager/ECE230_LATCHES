@@ -1,6 +1,6 @@
-# Number Theory: Subtraction
+# Multiplexers and Demultiplexers
 
-In this lab you've learned the basics of number theory as it relates to subtraction.
+In this lab you have learned about multiplexers and demultiplexers.
 
 ## Rubric
 
@@ -13,17 +13,17 @@ In this lab you've learned the basics of number theory as it relates to subtract
 
 ## Lab Questions
 
-In this lab we set up a basic half subtractor, then made a full adder that could be used with ones compliment numbers. We then made a module that converts an 8 bit number into a twos compliment version of the same number.
+In this lab, we learned how a ternary statement is used in Verilog. We used these ternary statements to create a multiplexer and a demultiplexer for 4 4 bit inputs that allows for selection of which input to use, and where to display that input.
 
-### 1 - Explain the differences between our Half Adder from last lab and the Half Subtractor from this lab.
+### In plain English describe the function and use of a multiplexer.
 
-While the half adder uses a carry bit, the half subtractor uses a borrow bit, which is different. The carry bit represented a 1 plus 1, while the borrow bit represents a 0 minus a 1.
+A multiplexer allows a system to select one of multiple inputs depending on the value of a selector. The output will match the value of whichever input is denoted by the selector. The multiplexer can be used like a switch case function.
 
-### 2 - What about the end around carry of One’s Complement makes it hard to use and implement?
+### In plain English describe the function and use of a demultiplexer.
 
-The end around must use a second pass of the same addition logic instead of looping back to the start, otherwise it may cause an infinite loop problem that can be very destructive.
+A demultiplexer allows a system to direct an input to one of multiple outputs depending on the value of a selector. Demultiplexers can be used to direct signals to various locations like a switch on a railroad track.
 
-### 3 - What is the edge case and problem with Two’s Complement number representation?
+### What other uses might these circuits have? (Think Shannon’s)
 
-The edge case would be a number with all 1's, so that the Two's Complement number would overflow to the next bit.
+These circuits might also be used to brute force logic operations by implementing the outputs case-by-case. For example, you could set A as the msb for the selector and B as the lsb, and tune the multiplexer output to match the truth table for A and B. Another use might be to sort bits/information by using the combination of a mux and demux.
 

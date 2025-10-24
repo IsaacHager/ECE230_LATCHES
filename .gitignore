@@ -1,3 +1,4 @@
+*.html
+__pycache__/
 a.out
 dump.vcd
-__pycache__/
