@@ -1,4 +1,5 @@
-*.html
-__pycache__/
+.bundle/
 a.out
 dump.vcd
+*.html
+__pycache__/

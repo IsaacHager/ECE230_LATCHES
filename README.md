@@ -1,6 +1,6 @@
-# Multiplexers and Demultiplexers
+# Sequential Circuits: Latches
 
-In this lab you have learned about multiplexers and demultiplexers.
+In this lab, you learned about the basic building block of sequential circuits: the latch.
 
 ## Rubric
 
@@ -13,17 +13,16 @@ In this lab you have learned about multiplexers and demultiplexers.
 
 ## Lab Questions
 
-In this lab, we learned how a ternary statement is used in Verilog. We used these ternary statements to create a multiplexer and a demultiplexer for 4 4 bit inputs that allows for selection of which input to use, and where to display that input.
+In this lab we first coded our multiplexor and demultiplexor to use 8-bit data. We then coded a one-bit D-latch before then coding an 8-bit D-latch to use inside our memory block. We then connected together with wires the Demux and the enable button demux into all the D-latches (memory block), which were then output through into the mux. Now the board can store 4 unique 8 bit values at once.
 
-### In plain English describe the function and use of a multiplexer.
+###  Why can we not just use structural Verilog to implement latches?
 
-A multiplexer allows a system to select one of multiple inputs depending on the value of a selector. The output will match the value of whichever input is denoted by the selector. The multiplexer can be used like a switch case function.
+Structural assignments execute instantly and together. This means that assigning Q and notQ happens at the same time. This is not the behavior we want, so behavioral setup allows the second assignment to execute after the first one, which makes the sequential part of the D-latch work.
 
-### In plain English describe the function and use of a demultiplexer.
+### What is the meaning of always @(*) in a sensitivity block?
 
-A demultiplexer allows a system to direct an input to one of multiple outputs depending on the value of a selector. Demultiplexers can be used to direct signals to various locations like a switch on a railroad track.
+The block means its working continuously and behaviorily matches the sequential nature needed for our memory. As a bonus it also means it doesn't use memory itself.
 
-### What other uses might these circuits have? (Think Shannon’s)
+### What importance is memory to digital circuits?
 
-These circuits might also be used to brute force logic operations by implementing the outputs case-by-case. For example, you could set A as the msb for the selector and B as the lsb, and tune the multiplexer output to match the truth table for A and B. Another use might be to sort bits/information by using the combination of a mux and demux.
-
+Memory provides context that is vital for making any meaningful program. Without memory, operations could not really be chained or used together easily, values or variables couldn't be stored, and nothing would work properly.
